@@ -25,9 +25,10 @@ class SessionModel:
     def get_by_key(self, key):
         sqlQuery = 'select * from sessions where session_key = %s' ;
         self.cursor.execute(sqlQuery, (key,))
-        rows = self.cursor.fetchall()
+        rows = self.cursor.fetchone()
         return rows 
 
     def insert_session(self, key, value):
-        sqlQuery = "insert into sessions ('session_key', 'session_key') values (%s, %s)" ;
+        sqlQuery = "insert into sessions (`session_key`, `session_value`) values (%s, %s)" ;
         self.cursor.execute(sqlQuery, (key, value))
+        self.connection.commit()
